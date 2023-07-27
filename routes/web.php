@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+	$user = \App\Models\User::query()->find(1);
+	dd($user);
     return view('welcome');
 });

@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+		Illuminate\Database\DatabaseServiceProvider::class,
 
         /*
          * Application Service Providers...
