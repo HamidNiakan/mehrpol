@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\AssigningSubscriptionToUserAndroidEvent;
+use App\Events\AssigningSubscriptionToUserIosEvent;
+use App\Listeners\AssigningSubscriptionToUserAndroidListener;
+use App\Listeners\AssigningSubscriptionToUserIosListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +22,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+		
+		AssigningSubscriptionToUserAndroidEvent::class => [
+			AssigningSubscriptionToUserAndroidListener::class
+		],
+		
+		AssigningSubscriptionToUserIosEvent::class => [
+			AssigningSubscriptionToUserIosListener::class
+		]
     ];
 
     /**

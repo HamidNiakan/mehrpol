@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Api\v1\Auth;
 
+use App\Enums\User\DeviceTypeEnums;
+use App\Events\AssigningSubscriptionToUserAndroidEvent;
+use App\Events\AssigningSubscriptionToUserIosEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\Auth\SignInRequest;
 use App\Http\Requests\Api\v1\Auth\SignUpRequest;
-use App\Http\Resources\v1\AuthResource;
+use App\Http\Resources\v1\UserResource;
+use App\Listeners\AssigningSubscriptionToUserIosListener;
 use App\Models\User;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Auth\AuthRepositoryInterface;
@@ -21,9 +25,14 @@ class AuthenticationController extends Controller
 		
 		$user = $this->repository->signUp($request->toArray());
 		$data = [
-			'user' => AuthResource::make($user),
+			'user' => UserResource::make($user->load('subscriptions')) ,
 			'token' => $this->generateApiToken($user)
 		];
+		if ($user->device_type == DeviceTypeEnums::Android) {
+			event(new AssigningSubscriptionToUserAndroidEvent($user));
+		} else {
+			event(new AssigningSubscriptionToUserIosEvent($user));
+		}
 		return printResult($data);
 		
 	}
@@ -38,7 +47,7 @@ class AuthenticationController extends Controller
 			return printResult([],$message,401);
 		}
 		$data = [
-			'user' => AuthResource::make($response),
+			'user' => UserResource::make($response->load('subscriptions')) ,
 			'token' => $this->generateApiToken($response)
 		];
 		return printResult($data);
@@ -48,7 +57,7 @@ class AuthenticationController extends Controller
 	
 	public function getUser(Request $request) {
 		
-		$user = AuthResource::make($request->user());
+		$user = UserResource::make($request->user()->load('subscriptions'));
 		return printResult($user);
 	}
 	

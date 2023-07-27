@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\Auth\AuthenticationController;
+use App\Http\Controllers\Api\v1\ApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,5 +20,9 @@ Route::controller(AuthenticationController::class)
 		Route::post('signUp','signUp');
 		Route::post('signIn','signIn');
 		Route::middleware('auth:sanctum')->post('user','getUser');
+	});
+Route::controller(ApiController::class)
+	->group(function () {
+		Route::get('users/subscriptions','getUsersSubscriptions');
 	});
 

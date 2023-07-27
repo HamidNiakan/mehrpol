@@ -28,6 +28,7 @@ class SignUpRequest extends FormRequest
         return [
             'first_name' => ['required','string'],
 			'last_name' => ['required','string'],
+			'email' => ['required','email'],
 			'device_type' => ['required', new Enum(DeviceTypeEnums::class)],
 			'mobile' => ['required', new ValidMobile(),'unique:users,mobile'],
 			'password' => [

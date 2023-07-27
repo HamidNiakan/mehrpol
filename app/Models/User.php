@@ -25,6 +25,7 @@ class User extends Authenticatable
 		'device_type',
         'mobile',
         'password',
+		'email'
     ];
 	
     /**
@@ -47,4 +48,9 @@ class User extends Authenticatable
         'password' => 'hashed',
 		'device_type' => DeviceTypeEnums::class
     ];
+	
+	
+	public function subscriptions() {
+		return $this->hasMany(UserSubscription::class);
+	}
 }
