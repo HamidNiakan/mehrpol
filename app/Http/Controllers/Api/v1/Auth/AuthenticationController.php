@@ -24,22 +24,21 @@ class AuthenticationController extends Controller
 	public function signUp(SignUpRequest $request) {
 		
 		$user = $this->repository->signUp($request->toArray());
-		$data = [
-			'user' => UserResource::make($user->load('subscriptions')) ,
-			'token' => $this->generateApiToken($user)
-		];
 		if ($user->device_type == DeviceTypeEnums::Android) {
 			event(new AssigningSubscriptionToUserAndroidEvent($user));
 		} else {
 			event(new AssigningSubscriptionToUserIosEvent($user));
 		}
+		$data = [
+			'user' => UserResource::make($user->load('subscriptions')) ,
+			'token' => $this->generateApiToken($user)
+		];
 		return printResult($data);
 		
 	}
 	
 	
 	public function signIn(SignInRequest $request) {
-	
 		$response = $this->repository->signIn($request->toArray());
 		
 		if (is_numeric($response) && $response == AuthRepository::STATUS_CODE_UNAUTHENTICATED) {
@@ -58,7 +57,7 @@ class AuthenticationController extends Controller
 	public function getUser(Request $request) {
 		
 		$user = UserResource::make($request->user()->load('subscriptions'));
-		return printResult($user);
+		return printResult(['user' =>$user]);
 	}
 	
 	

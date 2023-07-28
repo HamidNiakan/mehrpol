@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -18,7 +19,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+			'last_name' => fake()->name(),
+			'first_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -35,4 +37,25 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+	
+	public function setDeviceType(string $type): static
+	{
+		return $this->state(fn() => [
+			'device_type' => $type
+		]);
+	}
+	
+	public function setMobile(string $mobile): static
+	{
+		return $this->state(fn() => [
+			'mobile' => $mobile
+		]);
+	}
+	
+	public function setPassword(string $password): static
+	{
+		return $this->state(fn() => [
+			'password' => Hash::make($password)
+		]);
+	}
 }

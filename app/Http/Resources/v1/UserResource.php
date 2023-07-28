@@ -20,7 +20,8 @@ class UserResource extends JsonResource
 			'first_name' => $this->first_name,
 			'mobile' => $this->mobile,
 			'device_type' => $this->device_type->value,
-			'subscriptions' => $this->whenLoaded('subscriptions',UserSubscriptionResource::collection($this->subscriptions->load('subscription')))
+			'email' => $this->email,
+			'user_subscriptions' => $this->whenLoaded('subscriptions',UserSubscriptionResource::collection($this->subscriptions->load('subscription')))
 		];
     }
 }

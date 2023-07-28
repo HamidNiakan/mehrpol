@@ -16,13 +16,15 @@ use App\Http\Controllers\Api\v1\ApiController;
 */
 
 Route::controller(AuthenticationController::class)
+	->name('api.')
 	->group(function () {
-		Route::post('signUp','signUp');
-		Route::post('signIn','signIn');
-		Route::middleware('auth:sanctum')->post('user','getUser');
+		Route::post('signUp','signUp')->name('signUp');
+		Route::post('signIn','signIn')->name('sign-in');
+		Route::middleware('auth:sanctum')->post('user','getUser')->name('user');
 	});
 Route::controller(ApiController::class)
+	->name('api.')
 	->group(function () {
-		Route::get('users/subscriptions','getUsersSubscriptions');
+		Route::get('users/subscriptions','getUsersSubscriptions')->name('get-users-subscriptions');
 	});
 

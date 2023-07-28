@@ -17,7 +17,9 @@ class ApiController extends Controller
 		$users = $this->repository->getSubscriptions();
 		
 		$users = UserResource::collection($users);
-		return printResult($users);
+		return response()->json([
+			'data' => $users
+								]);
 		
 		
 	}
