@@ -26,7 +26,13 @@ php artisan migrate:fresh --seed
 | getUser                 | POST   | `api.user`                    | `/api/user`                | get user authenticated with token |
 | get users subscriptions | GET    | `api.get-users-subscriptions` | `/api/users/subscriptions` | get list of users subscription    |
 
+## Run schedule and queue
+Sending an email when user account is about to expire.
+```bash
+php artisan schedule:run 
 
+php artisan queue:work
+```
 
 ## About Laravel
 
