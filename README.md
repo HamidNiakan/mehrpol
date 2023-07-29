@@ -7,6 +7,27 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+## Basic Usage
+```bash
+php artisan migrate:fresh --seed
+```
+## Testing
+```bash
+./vendor/bin/phpunit 
+```
+
+## Route Api
+
+| name                    | Method | route name                    | path                       | Description                       | 
+|-------------------------|--------|-------------------------------|----------------------------|-----------------------------------|
+| signUp                  | POST   | `api.signUp`                  | `/api/signUp`              | signup user                       |
+| signIp                  | POST   | `api.signIp`                  | `/api/signIn`              | signup user                       |
+| getUser                 | POST   | `api.user`                    | `/api/user`                | get user authenticated with token |
+| get users subscriptions | GET    | `api.get-users-subscriptions` | `/api/users/subscriptions` | get list of users subscription    |
+
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
