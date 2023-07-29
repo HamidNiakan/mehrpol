@@ -26,8 +26,8 @@ class ApiControllerTest extends TestCase
 		$this->withHeaders([
 							   'Accept' => 'application/json'
 						   ]);
-                           $this->createUserWithSubscription('09178223037','12345678',DeviceTypeEnums::Android->value,30);
-                           $this->createUserWithSubscription('09178223038','12345679',DeviceTypeEnums::IOS->value,60);
+	   $this->createUserWithSubscription('09178223037','12345678',DeviceTypeEnums::Android->value,30);
+	   $this->createUserWithSubscription('09178223038','12345679',DeviceTypeEnums::IOS->value,60);
 	}
     /**
      * A basic feature test example.

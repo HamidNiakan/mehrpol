@@ -32,9 +32,7 @@ class AuthenticationTest extends TestCase
         $this->ios = $this->createSubscription(60);
 
 	}
-
-
-
+	
 
 	/**
      * A basic feature test example.
